@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <style>
+        .myform{
+            margin-left:25%;
+            margin-top:30px;
+            width: 920px;
+            padding:5px;
+           border: 2px solid black;
+        }
+    </style>
+
+
+    <div class="myform">
+        <h4> Добавить книгу </h4>
+
+     <form action="" method="post" enctype = "multipart/form-data">
+            {{ form.hidden_tag() }}
+            <h6> Название книги: </h6>
+            <p>
+                {{ form.booktitle(size=62) }}<br>
+                {% for error in form.booktitle.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            </p>
+
+             <h6> Автор: </h6>
+            <p>
+                {{ form.author(size=62) }}<br>
+                {% for error in form.author.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            </p>
+
+           <h6> Текст книги: </h6>
+
+         <p>
+                {{ form.content(cols= "100%", rows="20") }}<br>
+                {% for error in form.content.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            </p>
+
+
+
+
+           <h6> Обложка книги: </h6> <input type = "file" name = "file" />
+
+
+
+           <p>{{ form.submit() }}
+    </form>
+    </div>
+
+{% endblock%}

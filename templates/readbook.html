@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<style>
+
+.book{
+    width: 600px;
+    margin-left:15px;
+    }
+ .myimg{
+    margin-left:40px;
+           width:300px;
+           height:456px;
+  }
+
+ .container-1{
+    display: flex;
+    margin-left:25%;
+ }
+
+.mytext{
+
+    white-space:pre-wrap;
+
+
+
+}
+
+</style>
+<br/>
+
+<div class="container-1">
+
+
+    <div class="book">
+        <h6> Номер книги: {{id}}</h6>
+        <h3>{{booktitle}}</h3>
+        <h6> Автор: {{author}}</h6>
+        {% for i in range(35) %}
+            _
+        {% endfor %}
+        <br/>
+        <br/>
+
+
+
+        <pre class="mytext"> {{text}}</pre>
+    </div>
+     <img src="../static/images/{{id}}.jpg" class="myimg" >
+
+</div>
+
+
+{% endblock%}
