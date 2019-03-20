@@ -12,7 +12,7 @@ import random
 from requests import get, post, delete, put
 import time
 from database import BOOKS, USERS
-
+from convert_img import resize_image
 
 server_url = 'http://127.0.0.1:8055'
 def getURL(suffix):
@@ -62,10 +62,19 @@ def add_new_book():
         image = request.files['file']
         post(getURL('/books'), json={'booktitle': booktitle, 'text': content, 'author': author}).json()
         all = get(getURL('/books')).json()['books']
+        gg = ''
         if(all):
-            image.save('static/images/{}.jpg'.format(all[-1][0]))
+            image.save('static/images/{}b.jpg'.format(all[-1][0]))
+            gg = 'static/images/{}b.jpg'.format(all[-1][0])
         else:
-            image.save('static/images/1.jpg')
+            image.save('static/images/1b.jpg')
+            gg ='static/images/1b.jpg'
+
+        resize_image(input_image_path= gg,
+                         output_image_path=gg.replace('b', ''),
+                         size=(2 * 300, 2 * 456))
+        os.remove(gg)
+
 
         return redirect('/')
     return render_template('add_new_book.html', form=form, session=session)
@@ -89,9 +98,8 @@ def deletebook(id):
     now_book = get(getURL('/books/{}').format(id)).json()['book']
     if not now_book:
        return redirect('/')
-
-    os.remove("static/images/{}.jpg".format(id))
     delete(getURL('/books/{}'.format(id)))
+    os.remove("static/images/{}.jpg".format(id))
     return redirect('/')
 
 
