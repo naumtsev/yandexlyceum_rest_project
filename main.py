@@ -128,6 +128,12 @@ def logout():
     print(1)
     return redirect('/')
 
+@app.route('/error')
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('error404.html', session=session), 404
+	
+	
 DEBUG = True
 if DEBUG:
     if __name__ == '__main__':
